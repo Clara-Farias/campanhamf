@@ -490,13 +490,17 @@ async function exportPNG() {
   btn.innerHTML = '⏳ Gerando...';
   btn.disabled = true;
 
-  // Temporarily set light background for screenshot
-  const page = document.querySelector('.page');
-  const body = document.body;
-  const origBodyBg = body.style.background;
-  const origPageBg = page.style.background;
+  // Hide buttons during capture
+  const allBtns = document.querySelectorAll('button');
+  allBtns.forEach(b => b.style.visibility = 'hidden');
 
-  body.style.background = '#0d1a12';
+  // Scroll to top
+  window.scrollTo(0, 0);
+
+  // Wait for everything to settle
+  await new Promise(r => setTimeout(r, 400));
+
+  const page = document.querySelector('.page');
 
   try {
     const canvas = await html2canvas(page, {
@@ -504,23 +508,36 @@ async function exportPNG() {
       scale: 2,
       useCORS: true,
       allowTaint: true,
-      scrollY: -window.scrollY,
-      windowWidth: page.scrollWidth,
+      scrollX: 0,
+      scrollY: 0,
+      x: 0,
+      y: 0,
+      width: page.offsetWidth,
+      height: page.scrollHeight,
+      windowWidth: document.documentElement.scrollWidth,
       windowHeight: page.scrollHeight,
-      logging: false
+      logging: false,
+      onclone: (doc) => {
+        // Ensure full height captured in clone
+        doc.querySelector('.page').style.height = 'auto';
+        doc.querySelector('.page').style.overflow = 'visible';
+        doc.body.style.height = 'auto';
+        doc.body.style.overflow = 'visible';
+        // Hide buttons in clone
+        doc.querySelectorAll('button').forEach(b => b.style.display = 'none');
+      }
     });
 
     const link = document.createElement('a');
     const d = new Date();
     const dateStr = d.toLocaleDateString('pt-BR').replace(/\//g,'-');
     link.download = `campanha-mf-${dateStr}.png`;
-    link.href = canvas.toDataURL('image/png');
+    link.href = canvas.toDataURL('image/png', 1.0);
     link.click();
   } catch(err) {
     alert('Erro ao gerar imagem: ' + err.message);
   } finally {
-    body.style.background = origBodyBg;
-    page.style.background = origPageBg;
+    allBtns.forEach(b => b.style.visibility = '');
     btn.innerHTML = original;
     btn.disabled = false;
   }
