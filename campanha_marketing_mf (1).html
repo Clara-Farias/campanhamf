@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Meireles · Campanha Marketing MF</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #39e87a; --accent-dim: rgba(57,232,122,.10); --accent-glow: rgba(57,232,122,.25);
+  --s0: #080f0b; --s1: #0d1a12; --s2: #111e16; --s3: #172818; --s4: #1d3320;
+  --tp: #e8f5ee; --ts: #8fbfa0; --tt: #4d7a5e; --tm: #2e5040;
+  --bd: rgba(57,232,122,.07); --bm: rgba(57,232,122,.16); --bs: rgba(57,232,122,.32);
+  --amber: #f5c842; --red: #f05252; --blue: #60b8f5;
+  --font: 'Syne', sans-serif; --mono: 'DM Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: var(--s0); color: var(--tp); min-height: 100vh; }
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: linear-gradient(rgba(57,232,122,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,232,122,.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+body::after {
+  content: ''; position: fixed; top: -300px; right: -200px;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(57,232,122,.04) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.page { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }
+
+/* ── HEADER ── */
+.header { margin-bottom: 2.5rem; animation: riseIn .5s ease both; }
+.brand { display: flex; align-items: center; gap: 9px; margin-bottom: 12px; }
+.brand-icon { width: 28px; height: 28px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.brand-name { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); font-family: var(--mono); }
+.campaign-title { font-size: clamp(24px, 5vw, 38px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; margin-bottom: 6px; }
+.campaign-title span { color: var(--accent); }
+.campaign-sub { font-size: 12px; font-family: var(--mono); color: var(--tt); }
+
+/* ── PROGRESS HERO ── */
+.progress-hero {
+  background: var(--s2); border: 1px solid var(--bm);
+  border-radius: 20px; padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+  position: relative; overflow: hidden;
+  animation: riseIn .5s .1s ease both;
+}
+.progress-hero::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), rgba(57,232,122,.2));
+}
+.progress-top { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 1.25rem; gap: 1rem; flex-wrap: wrap; }
+.progress-pct {
+  font-size: clamp(52px, 10vw, 76px); font-weight: 800;
+  letter-spacing: -.05em; line-height: 1; color: var(--accent);
+  font-family: var(--mono);
+}
+.progress-meta { text-align: right; }
+.progress-done { font-size: 22px; font-weight: 700; color: var(--tp); }
+.progress-total { font-size: 12px; color: var(--tt); font-family: var(--mono); margin-top: 2px; }
+.progress-track {
+  height: 10px; background: var(--s4); border-radius: 10px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent), #5aef91);
+  transition: width .6s cubic-bezier(.4,0,.2,1);
+  box-shadow: 0 0 12px rgba(57,232,122,.4);
+}
+.progress-label { font-size: 11px; font-family: var(--mono); color: var(--tt); margin-top: 8px; }
+
+/* ── CHECKLIST ── */
+.checklist-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+  animation: riseIn .5s .2s ease both;
+}
+.checklist-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tt); font-family: var(--mono); }
+.sync-note { font-size: 10px; font-family: var(--mono); color: var(--tm); display: flex; align-items: center; gap: 5px; }
+.sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+
+.checklist { display: flex; flex-direction: column; gap: 8px; }
+
+.item {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 16px 18px;
+  background: var(--s1); border: 1px solid var(--bd);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all .2s;
+  animation: riseIn .5s ease both;
+  position: relative; overflow: hidden;
+}
+.item:hover { background: var(--s2); border-color: var(--bm); transform: translateX(3px); }
+.item.done { border-color: rgba(57,232,122,.2); background: rgba(57,232,122,.04); }
+.item.done:hover { background: rgba(57,232,122,.07); }
+.item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--bd); border-radius: 3px 0 0 3px; transition: background .2s; }
+.item.done::before { background: var(--accent); }
+
+.check-box {
+  width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px;
+  border-radius: 7px; border: 2px solid var(--bm);
+  display: flex; align-items: center; justify-content: center;
+  transition: all .2s; background: transparent;
+  font-size: 12px; font-weight: 800; color: var(--s0);
+}
+.item.done .check-box { background: var(--accent); border-color: var(--accent); }
+.item.done .check-box::after { content: '✓'; }
+
+.item-content { flex: 1; min-width: 0; }
+.item-num { font-size: 10px; font-family: var(--mono); color: var(--tm); margin-bottom: 2px; font-weight: 500; }
+.item-title { font-size: 14px; font-weight: 700; color: var(--tp); line-height: 1.35; transition: color .2s; }
+.item.done .item-title { color: var(--tt); text-decoration: line-through; }
+.item-meta { display: flex; align-items: center; gap: 10px; margin-top: 6px; flex-wrap: wrap; }
+.item-resp { font-size: 11px; font-family: var(--mono); color: var(--tt); }
+.item-date { font-size: 11px; font-family: var(--mono); color: var(--tm); }
+.item-done-by { font-size: 10px; font-family: var(--mono); color: var(--accent); opacity: .8; }
+
+.item-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; }
+.item-tag { font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; font-family: var(--mono); padding: 3px 8px; border-radius: 20px; white-space: nowrap; }
+.tag-pending { background: rgba(96,184,245,.1); color: var(--blue); border: 1px solid rgba(96,184,245,.2); }
+.tag-done    { background: rgba(57,232,122,.1); color: var(--accent); border: 1px solid rgba(57,232,122,.2); }
+.tag-urgent  { background: rgba(245,200,66,.1); color: var(--amber); border: 1px solid rgba(245,200,66,.2); }
+
+/* ── MODAL ── */
+.overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.7); backdrop-filter: blur(4px); z-index: 100; align-items: center; justify-content: center; }
+.overlay.open { display: flex; }
+.modal { background: var(--s2); border: 1px solid var(--bm); border-radius: 20px; padding: 1.75rem; width: 90%; max-width: 420px; animation: scaleIn .2s ease both; box-shadow: 0 24px 80px rgba(0,0,0,.6); }
+.modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; }
+.modal-title { font-size: 15px; font-weight: 800; }
+.icon-btn { background: none; border: none; cursor: pointer; color: var(--tt); width: 26px; height: 26px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all .15s; }
+.icon-btn:hover { color: var(--accent); background: var(--accent-dim); }
+.form-group { margin-bottom: 14px; }
+.form-label { display: block; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--tt); font-family: var(--mono); margin-bottom: 5px; }
+input[type=text], select { width: 100%; padding: 9px 12px; font-size: 13px; font-family: var(--font); font-weight: 500; border-radius: 7px; border: 1px solid var(--bd); background: var(--s3); color: var(--tp); outline: none; transition: border-color .15s; }
+input:focus, select:focus { border-color: var(--bs); }
+input::placeholder { color: var(--tm); }
+select option { background: var(--s3); }
+.modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 1.25rem; padding-top: 1.25rem; border-top: 1px solid var(--bd); }
+.btn { font-family: var(--font); font-size: 13px; font-weight: 600; padding: 8px 18px; border-radius: var(--r-md, 10px); border: 1px solid var(--bm); background: transparent; color: var(--ts); cursor: pointer; transition: all .18s; }
+.btn:hover { background: var(--accent-dim); border-color: var(--bs); color: var(--accent); }
+.btn-primary { background: var(--accent); color: var(--s0); border-color: var(--accent); font-weight: 700; }
+.btn-primary:hover { background: #5aef91; color: var(--s0); }
+.btn-danger { border-color: rgba(240,82,82,.3); color: var(--red); }
+.btn-danger:hover { background: rgba(240,82,82,.1); border-color: var(--red); color: var(--red); }
+
+/* ── CONFETTI ── */
+.confetti-wrap { position: fixed; inset: 0; pointer-events: none; z-index: 999; overflow: hidden; }
+.confetti-piece { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: confettiFall linear forwards; }
+@keyframes confettiFall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+/* ── CELEBRATE BANNER ── */
+.celebrate { display: none; background: linear-gradient(135deg, rgba(57,232,122,.15), rgba(57,232,122,.05)); border: 1px solid var(--bs); border-radius: 16px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; text-align: center; animation: riseIn .4s ease both; }
+.celebrate.show { display: block; }
+.celebrate-emoji { font-size: 32px; margin-bottom: 8px; }
+.celebrate-title { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+.celebrate-sub { font-size: 12px; font-family: var(--mono); color: var(--tt); }
+
+/* ── FOOTER ── */
+.page-footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; animation: riseIn .5s .4s ease both; }
+.footer-brand { font-size: 11px; font-family: var(--mono); color: var(--tm); letter-spacing: .08em; }
+.footer-sync { font-size: 11px; font-family: var(--mono); color: var(--tt); }
+
+@keyframes riseIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: var(--bm); border-radius: 4px; }
+
+@media print {
+  body { background: #fff !important; color: #111 !important; }
+  body::before, body::after { display: none; }
+  .page { padding: 1rem; max-width: 100%; }
+  .brand-icon { background: #39e87a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .brand-name, .campaign-title, .campaign-title span { color: #111 !important; }
+  .campaign-title span { color: #1a7a3a !important; }
+  button, [onclick*="exportReport"] { display: none !important; }
+  .progress-hero { background: #f8f8f8 !important; border: 1px solid #ddd !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .progress-pct { color: #1a7a3a !important; }
+  .progress-fill { background: #39e87a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .progress-track { background: #eee !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .item { background: #f8f8f8 !important; border: 1px solid #ddd !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; page-break-inside: avoid; }
+  .item.done { background: #f0faf4 !important; }
+  .item-title { color: #111 !important; }
+  .item.done .item-title { color: #888 !important; }
+  .check-box { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .celebrate { display: none !important; }
+  .page-footer { border-top: 1px solid #ddd !important; }
+  .footer-brand, .footer-sync { color: #888 !important; }
+  .sync-note { display: none; }
+  @page { margin: 1.5cm; size: A4 portrait; }
+}
+
+@media(max-width:500px) { .page { padding: 1.5rem 1rem 3rem; } .progress-pct { font-size: 52px; } }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <span class="brand-name">Meireles &amp; Freitas</span>
+    </div>
+    <div class="campaign-title">Campanha<br><span>Marketing MF</span></div>
+    <div class="campaign-sub" id="campaign-sub">— carregando —</div>
+    <div style="margin-top:14px;">
+      <button onclick="exportReport()" style="font-family:var(--font);font-size:12px;font-weight:700;padding:8px 16px;border-radius:10px;border:1px solid var(--bs);background:transparent;color:var(--accent);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .18s;letter-spacing:.03em;" onmouseover="this.style.background='var(--accent-dim)'" onmouseout="this.style.background='transparent'">↓ Exportar relatório</button>
+    </div>
+  </div>
+
+  <!-- Celebração 100% -->
+  <div class="celebrate" id="celebrate">
+    <div class="confetti-wrap" id="confetti"></div>
+    <div class="celebrate-emoji">🎉</div>
+    <div class="celebrate-title">Campanha concluída!</div>
+    <div class="celebrate-sub">Todos os itens foram finalizados. Bom trabalho, equipe!</div>
+  </div>
+
+  <!-- Hero progresso -->
+  <div class="progress-hero">
+    <div class="progress-top">
+      <div class="progress-pct" id="pct">0%</div>
+      <div class="progress-meta">
+        <div class="progress-done"><span id="done-count">0</span> / <span id="total-count">0</span></div>
+        <div class="progress-total">itens concluídos</div>
+      </div>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progress-label">Nenhum item concluído ainda</div>
+  </div>
+
+  <!-- Checklist -->
+  <div class="checklist-header">
+    <span class="checklist-label">Itens da campanha</span>
+    <span class="sync-note"><span class="sync-dot"></span>atualiza do Google Sheets a cada 30s</span>
+  </div>
+
+  <div class="checklist" id="checklist"></div>
+
+  <div class="page-footer">
+    <span class="footer-brand">MEIRELES &amp; FREITAS · 2025</span>
+    <span class="footer-sync" id="footer-sync">—</span>
+  </div>
+
+</div>
+
+<!-- Modal de marcação -->
+<div class="overlay" id="modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Marcar item</div>
+      <button class="icon-btn" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-item-name" style="font-size:13px;color:var(--ts);margin-bottom:1.25rem;line-height:1.4;padding:10px 12px;background:var(--s3);border-radius:8px;border:1px solid var(--bd);"></div>
+    <div class="form-group">
+      <label class="form-label">Seu nome</label>
+      <input type="text" id="f-resp" placeholder="Ex: Clara Letícia">
+    </div>
+    <div class="form-group">
+      <label class="form-label" style="display:flex;justify-content:space-between;">
+        <span>Progresso</span>
+        <span id="prog-display" style="color:var(--accent);font-family:var(--mono);font-weight:700;">0%</span>
+      </label>
+      <input type="range" id="f-prog" min="0" max="100" step="5" value="0"
+        oninput="document.getElementById('prog-display').textContent=this.value+'%'"
+        style="width:100%;accent-color:var(--accent);height:6px;margin-top:4px;cursor:pointer;">
+      <div style="display:flex;justify-content:space-between;font-size:10px;font-family:var(--mono);color:var(--tm);margin-top:4px;">
+        <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-danger" id="btn-uncheck" onclick="uncheckItem()" style="display:none;">Desmarcar</button>
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmCheck()">Confirmar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DADOS INICIAIS ──
+const INITIAL_ITEMS = [
+  { id:1, title:'Apresentação comercial serviços de campo',      tag:'urgente', prog:0 },
+  { id:2, title:'Vídeo comercial atualizado',                    tag:'normal',  prog:0 },
+  { id:3, title:'Vídeos para tráfego pago',                      tag:'normal',  prog:0 },
+  { id:4, title:'Conteúdo rico sobre perfil de inadimplência dos consumidores', tag:'normal', prog:0 },
+  { id:5, title:'Itens para o CIDE todos encaminhados / solicitados / comprados', tag:'urgente', prog:0 },
+  { id:6, title:'PPT Cobrança com insights do C4',               tag:'normal',  prog:0 },
+  { id:7, title:'Empacotamento do produto Alô MF',               tag:'normal',  prog:0 },
+  { id:8, title:'Placas comunicação visual bases SP e Goiânia',  tag:'normal',  prog:0 },
+];
+
+const STORAGE_KEY = 'campanha_mf_v1';
+let items = [];
+let activeItemId = null;
+
+// ── GOOGLE SHEETS (fonte de dados) ──
+const SHEETS_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRYs6Seuj8I5c-j0oQ8mMd9e-8oFDa07wJaI85MUQX4wGj7Z8343hZrONA59vH-WSgXkHHhu3mpq8Ki/pub?gid=0&single=true&output=csv";
+
+async function loadShared() {
+  try {
+    const res = await fetch(SHEETS_URL);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const text = await res.text();
+    const lines = text.trim().split('\n').filter(l => l.trim());
+    if (lines.length < 2) throw new Error('sem dados');
+    // skip header row, parse each item
+    const parsed = lines.slice(1).map(line => {
+      const cols = line.split(',').map(c => c.replace(/^"|"$/g,'').trim());
+      return {
+        id:        parseInt(cols[0]) || 0,
+        title:     cols[1] || '',
+        prog:      Math.min(100, Math.max(0, parseInt(cols[2]) || 0)),
+        updatedBy: cols[3] || null,
+        updatedAt: cols[4] || null,
+        tag:       'normal'
+      };
+    }).filter(i => i.id > 0);
+    return parsed;
+  } catch(e) {
+    console.warn('Sheets error:', e);
+    return null;
+  }
+}
+
+// saveShared não escreve no Sheets (read-only) — salva localmente como cache
+async function saveShared(data) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+// ── RENDER ──
+function render() {
+  const total = items.length;
+  const avgPct = total ? Math.round(items.reduce((s,i) => s+(i.prog||0), 0) / total) : 0;
+  const done   = items.filter(i => (i.prog||0) === 100).length;
+
+  document.getElementById('pct').textContent = avgPct + '%';
+  document.getElementById('done-count').textContent = done;
+  document.getElementById('total-count').textContent = total;
+  document.getElementById('progress-fill').style.width = avgPct + '%';
+
+  const remaining = total - done;
+  document.getElementById('progress-label').textContent =
+    avgPct === 0 ? 'Nenhum item iniciado ainda' :
+    done === total ? '🎉 Todos os itens concluídos!' :
+    `${remaining} item${remaining !== 1 ? 's' : ''} restante${remaining !== 1 ? 's' : ''}`;
+
+  // Celebrate
+  const cel = document.getElementById('celebrate');
+  if (done === total && total > 0) {
+    cel.classList.add('show');
+    if (!cel.dataset.fired) { cel.dataset.fired = '1'; launchConfetti(); }
+  } else {
+    cel.classList.remove('show');
+    delete cel.dataset.fired;
+  }
+
+  // Sub
+  const d = new Date();
+  document.getElementById('campaign-sub').textContent =
+    `Atualizado em ${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
+  document.getElementById('footer-sync').textContent =
+    `sync ${d.toLocaleDateString('pt-BR')} ${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
+
+  const tagClass = { urgente:'tag-urgent', normal:'tag-pending' };
+  document.getElementById('checklist').innerHTML = items.map((item, idx) => {
+    const p = item.prog || 0;
+    const isDone = p === 100;
+    const barColor = p === 100 ? '#39e87a' : p >= 60 ? '#60b8f5' : p >= 30 ? '#f5c842' : '#4d7a5e';
+    return `<div class="item ${isDone ? 'done' : ''}" onclick="openModal(${item.id})" style="animation-delay:${idx*0.05}s">
+      <div class="check-box">
+        ${isDone ? '' : `<span style="font-size:10px;font-weight:800;color:${barColor};font-family:var(--mono)">${p > 0 ? p+'%' : ''}</span>`}
+      </div>
+      <div class="item-content">
+        <div class="item-num">${String(item.id).padStart(2,'0')}</div>
+        <div class="item-title">${item.title}</div>
+        <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
+          <div style="flex:1;height:4px;background:var(--s4);border-radius:4px;overflow:hidden;">
+            <div style="height:100%;width:${p}%;background:${barColor};border-radius:4px;transition:width .5s;box-shadow:${isDone?'0 0 8px rgba(57,232,122,.5)':'none'};"></div>
+          </div>
+          <span style="font-size:10px;font-family:var(--mono);color:${barColor};font-weight:700;min-width:30px;text-align:right;">${p}%</span>
+        </div>
+        <div class="item-meta">
+          ${item.updatedBy ? `<span class="item-done-by">${isDone ? '✓' : '↻'} ${item.updatedBy}</span>` : ''}
+          ${item.updatedAt ? `<span class="item-date">${new Date(item.updatedAt).toLocaleDateString('pt-BR')}</span>` : ''}
+        </div>
+      </div>
+      <div class="item-right">
+        <span class="item-tag ${isDone ? 'tag-done' : p > 0 ? tagClass[item.tag]||'tag-pending' : 'tag-pending'}">
+          ${isDone ? 'concluído' : p > 0 ? 'andamento' : 'pendente'}
+        </span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── MODAL ──
+function openModal(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  activeItemId = id;
+  document.getElementById('modal-title').textContent = (item.prog||0) > 0 ? 'Atualizar progresso' : 'Iniciar item';
+  document.getElementById('modal-item-name').textContent = item.title;
+  const prog = item.prog || 0;
+  document.getElementById('f-resp').value = item.updatedBy || '';
+  document.getElementById('f-prog').value = prog;
+  document.getElementById('prog-display').textContent = prog + '%';
+  document.getElementById('btn-uncheck').style.display = prog > 0 ? 'inline-flex' : 'none';
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('open');
+  activeItemId = null;
+}
+
+async function confirmCheck() {
+  const item = items.find(i => i.id === activeItemId);
+  if (!item) return;
+  const resp = document.getElementById('f-resp').value.trim();
+  const prog = parseInt(document.getElementById('f-prog').value) || 0;
+  item.prog      = prog;
+  item.updatedBy = resp || null;
+  item.updatedAt = new Date().toISOString();
+  closeModal();
+  await saveShared(items); // salva localmente como cache
+  render();
+  // Avisa que precisa atualizar o Sheets
+  showSheetsHint(item, prog);
+}
+
+function showSheetsHint(item, prog) {
+  let hint = document.getElementById('sheets-hint');
+  if (!hint) {
+    hint = document.createElement('div');
+    hint.id = 'sheets-hint';
+    hint.style.cssText = 'position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:var(--s3);border:1px solid var(--bm);border-radius:12px;padding:12px 18px;font-size:12px;font-family:var(--mono);color:var(--ts);z-index:999;display:flex;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,.4);max-width:90vw;animation:riseIn .3s ease both;';
+    document.body.appendChild(hint);
+  }
+  hint.innerHTML = `<span style="color:var(--accent)">📊</span> Atualize a coluna <strong style="color:var(--tp)">prog</strong> do item ${item.id} para <strong style="color:var(--accent)">${prog}</strong> no Google Sheets para sincronizar com a equipe. <button onclick="this.parentElement.remove()" style="background:none;border:none;color:var(--tt);cursor:pointer;font-size:14px;margin-left:6px;">✕</button>`;
+  clearTimeout(hint._t);
+  hint._t = setTimeout(() => hint.remove(), 8000);
+}
+
+async function uncheckItem() {
+  const item = items.find(i => i.id === activeItemId);
+  if (!item) return;
+  item.prog = 0; item.updatedBy = null; item.updatedAt = null;
+  closeModal();
+  await saveShared(items);
+  render();
+}
+
+// ── CONFETTI ──
+function launchConfetti() {
+  const colors = ['#39e87a','#5aef91','#f5c842','#60b8f5','#ffffff','#a8f0c0'];
+  const wrap = document.getElementById('confetti');
+  for (let i = 0; i < 60; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.cssText = `
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      width:${6+Math.random()*8}px;height:${6+Math.random()*8}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${2+Math.random()*2}s;
+      animation-delay:${Math.random()*1}s;
+      opacity:${0.7+Math.random()*0.3};
+    `;
+    wrap.appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+  }
+}
+
+// Auto-refresh handled in init setInterval
+
+// ── EXPORTAR ──
+function exportReport() {
+  window.print();
+}
+
+// ── INIT ──
+async function init() {
+  // Try Sheets first, fallback to localStorage, then seed
+  const fromSheets = await loadShared();
+  if (fromSheets && fromSheets.length) {
+    items = fromSheets;
+  } else {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      items = raw ? JSON.parse(raw) : INITIAL_ITEMS.map(i => ({ ...i, prog: 0, updatedBy: null, updatedAt: null }));
+    } catch(e) {
+      items = INITIAL_ITEMS.map(i => ({ ...i, prog: 0, updatedBy: null, updatedAt: null }));
+    }
+  }
+  render();
+  // Auto-refresh from Sheets every 30s
+  setInterval(async () => {
+    const fresh = await loadShared();
+    if (fresh && fresh.length && JSON.stringify(fresh) !== JSON.stringify(items)) {
+      items = fresh;
+      render();
+    }
+  }, 30000);
+}
+
+init();
+</script>
+</body>
+</html>
